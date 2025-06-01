@@ -9,6 +9,7 @@
   .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
   h1 { color: #2d7a2d; }
   .status { font-size: 1.2em; margin-top: 15px; }
+  #error { color: red; margin-top: 20px; }
 </style>
 </head>
 <body>
@@ -16,7 +17,7 @@
   <h1>متابعة حالة الطلب</h1>
   <div id="orderNumber"></div>
   <div id="status" class="status"></div>
-  <div id="error" style="color:red; margin-top:20px;"></div>
+  <div id="error"></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
@@ -37,6 +38,7 @@ function init() {
 }
 
 function showOrder(data) {
+  console.log('Data from Google Sheets:', data);  // طباعة البيانات في الكونسول
   const orderNumber = getOrderNumberFromURL();
   if (!orderNumber) {
     document.getElementById('error').textContent = 'يرجى إدخال رقم طلب في الرابط.';
@@ -48,7 +50,7 @@ function showOrder(data) {
     document.getElementById('orderNumber').textContent = `رقم الطلب: ${order['رقم الطلب 🆔']}`;
     document.getElementById('status').textContent = `الحالة: ${order['تحديث حاله الطلب 🔄']}`;
   } else {
-    document.getElementById('error').textContent = 'رقم الطلب غير موجود.';
+    document.getElementById('error').textContent = `رقم الطلب (${orderNumber}) غير موجود.`;
   }
 }
 
